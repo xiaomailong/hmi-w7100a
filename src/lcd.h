@@ -1,6 +1,6 @@
 
-#include "W7100.h"
-#include "types.h"
+#include "..\..\..\drivers\W7100.h"
+#include "..\..\..\drivers\types.h"
 #define _LCD_H
 
 

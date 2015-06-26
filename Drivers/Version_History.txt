@@ -1,0 +1,59 @@
+/****************************************************************************************************************************
+(c)COPYRIGHT WIZnet Inc. ALL RIGHT RESERVED
+ W7100/W7100A/W7100A-64QFN driver
+ Revision History :
+  -------------------------------------------------------------------------------
+  Date		version	  	Description
+  -------------------------------------------------------------------------------
+  08/01/2009	1.0		Release Version.
+  ---------------------------------------------------------------------------------------------------------------------------
+  03/29/2010	1.1		Modify send() function, double check return value of getSn_RX_RSR(), getSn_TX_FSR()
+  				        	and change the ret => len on sendto() function of socket.c file.
+  ---------------------------------------------------------------------------------------------------------------------------
+  04/08/2010	1.2		Modify IINCHIP_WRITE_BUF() 0x000000 => 0x000000l (32bit long type)
+  				        	Modify tcpipcore.h common register define value => address for the unity of W7100 register definition.
+  ---------------------------------------------------------------------------------------------------------------------------
+  04/13/2010	1.3		Modify the set_Sn_IR() function of TCPIPCore.c file and change the variable type static => extern
+										in TCPIPCore.h file.
+										Add INTLEVEL0 register to TCPIPCore.h file. If user want to use interrupt, user must set the INTLEVEL0
+										higher than 0x3000. ex> IINCHIP_WRITE(INTLEVEL0, 0x50); IINCHIP_WRITE(INTLEVEL0 + 1, 0x00);
+  ---------------------------------------------------------------------------------------------------------------------------
+  05/12/2010	1.4		Modify the T2CON SFR bit order definition
+  ---------------------------------------------------------------------------------------------------------------------------
+  02/03/2011	1.5		Change the wizmemcpy function of wizmemcpy.c to support various compiler and stability
+										new wizmemcpy function may slow down the memory copying speed but it is stable and suit for all compiler.
+										The wizmemcpy version 1.4 was only suitable for Keil compiler.
+										If you use Keil compiler and want more fast memory copying speed, you can use pervious version wizmemcpy.
+  ---------------------------------------------------------------------------------------------------------------------------
+  03/28/2011	1.6		Add the PHY_mode_config() function for QFN64 pin package
+  									The QFN64 pin package don't have PHY mode selection pin.	
+  									So we need to configure it using the PHY_CONF SFR, set the PHY mode bits and reset using the reset bit.
+  									This procedure is implemented in PHY_mode_cofnfig() function of TCPIPCore.h file.
+  ---------------------------------------------------------------------------------------------------------------------------
+  04/26/2011	1.7		Add the CHIP_Init() function for stability of W7100/W7100A.
+  									We must set the 'RB' bit of WCONF bit when we start the user application for stable working state.
+  ---------------------------------------------------------------------------------------------------------------------------
+  05/02/2011	1.8		Add the serial.c/serial.h files to use UART of W7100/W7100A.
+  									putchar() and getkey() functions were added for printf() and scanf() functions of standard I/O.
+  ---------------------------------------------------------------------------------------------------------------------------
+  05/19/2011	1.81	Modify the description of PHY_mode_config() function in TCPIPCore.c file.
+  ---------------------------------------------------------------------------------------------------------------------------
+  12/22/2011	1.82	Modify the set_MEMsize() function in TCPIPCore.c file for allocating 16KB memory to the socket   
+  ---------------------------------------------------------------------------------------------------------------------------
+  02/21/2012	1.83	Modify the InitSerial() function in serial.c file for Serial interrupt enable(before: disable)
+	---------------------------------------------------------------------------------------------------------------------------
+	06/07/2012	1.9 	ARP Errata avoidance codes be applied.
+										- Added the ApplySubnet(), SetSubnet(), GetSubnet(), ClearSubnet() functions in TCPIPcore.c file.
+										- Modified the connect() function and sendto() function in socket.c file.
+										- Modified the Init_Network() function in TCPIPcore.c file. 
+										For more information about 'ARP Errata', please refer to 'W7100A Errata sheet'.										
+										
+										Modified the InitSerial() function in Serial.c file for UART application note. (UART & Timer mode selection) 
+										Added the Init_iMCU() function and Init_Network function to TCPIPcore.c file.
+										These Initialization functions had previously located in main.c file.
+	---------------------------------------------------------------------------------------------------------------------------
+	02/22/2013	1.91 	Moved '#define USE_QFN64' to TCPIPCore.h for W7100A-64QFN package correct initialization. 
+	---------------------------------------------------------------------------------------------------------------------------	
+	04/16/2013	1.92 	Programmable GPIO Pull-up setting in Init_iMCU() function, TCPIPCore.c (for character LCD display)										
+	---------------------------------------------------------------------------------------------------------------------------
+******************************************************************************************************************************/

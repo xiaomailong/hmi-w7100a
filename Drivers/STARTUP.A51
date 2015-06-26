@@ -35,7 +35,7 @@ XDATASTART      EQU     0
 ;
 ; <o> XDATALEN: XDATA memory size <0x0-0xFFFF> 
 ;     <i> The length of XDATA memory in bytes.
-XDATALEN        EQU     0      
+XDATALEN        EQU     01000H      
 ;
 ; <o> PDATASTART: PDATA memory start address <0x0-0xFFFF> 
 ;     <i> The absolute start address of PDATA memory
@@ -103,6 +103,8 @@ PPAGE_SFR       DATA    0A0H
 ; </e>
 ;------------------------------------------------------------------------------
 
+
+APP_START		EQU		01000H
 ; Standard SFR Symbols 
 ACC     DATA    0E0H
 B       DATA    0F0H
@@ -122,13 +124,117 @@ DPH     DATA    83H
                 EXTRN CODE (?C_START)
                 PUBLIC  ?C_STARTUP
 
-                CSEG    AT      0
-?C_STARTUP:     LJMP    STARTUP1
+                CSEG    AT      0		  	
+?C_STARTUP:     LJMP    STARTUP1			; Reset
 
-                RSEG    ?C_C51STARTUP
+				CSEG    AT      03H
+				LJMP    APP_START+03H		; Int 0
+				
+				CSEG    AT      0BH
+				LJMP    APP_START+0BH		; Int 1
+				
+				CSEG    AT      13H
+				LJMP    APP_START+13H		; Int 2 
+				
+				CSEG    AT      1BH
+				LJMP    APP_START+1BH	    ; Int 3
+				
+				CSEG    AT      23H
+				LJMP    APP_START+23H 		; Int 4
+				
+				CSEG    AT      2BH
+				LJMP    APP_START+2BH 		; Int 5
+				
+				CSEG	AT		33H
+				LJMP	APP_START+33H		; Int 6
+
+				CSEG	AT		3BH
+				LJMP	APP_START+3BH		; Int 7
+
+				CSEG    AT      43H
+				LJMP    APP_START+43H 		; Int 8
+				
+				CSEG    AT      4BH
+				LJMP    APP_START+4BH 		; Int 9
+
+				CSEG    AT      53H
+				LJMP    APP_START+53H 		; Int 10
+				
+				CSEG    AT      5BH
+				LJMP    APP_START+5BH 		; Int 11
+				
+				CSEG    AT      63H
+				LJMP    APP_START+63H 		; Int 12
+
+				CSEG    AT      6BH
+				LJMP    APP_START+6BH 		; Int 13
+
+				CSEG    AT      73H
+				LJMP    APP_START+73H 		; Int 14
+
+				CSEG    AT      7BH
+				LJMP    APP_START+7BH 		; Int 15
+
+				CSEG    AT      83H
+				LJMP    APP_START+83H 		; Int 16
+
+				CSEG    AT      8BH
+				LJMP    APP_START+8BH 		; Int 17
+
+				CSEG    AT      93H
+				LJMP    APP_START+93H 		; Int 18
+
+				CSEG    AT      9BH
+				LJMP    APP_START+9BH 		; Int 19
+
+				CSEG    AT      0A3H
+				LJMP    APP_START+0A3H 		; Int 20
+
+				CSEG    AT      0ABH
+				LJMP    APP_START+0ABH 		; Int 21
+
+				CSEG    AT      0B3H
+				LJMP    APP_START+0B3H 		; Int 22
+
+				CSEG    AT      0BBH
+				LJMP    APP_START+0BBH 		; Int 23
+
+				CSEG    AT      0C3H
+				LJMP    APP_START+0C3H 		; Int 24
+
+				CSEG    AT      0CBH
+				LJMP    APP_START+0CBH 		; Int 25
+
+				CSEG    AT      0D3H
+				LJMP    APP_START+0D3H 		; Int 26
+
+				CSEG    AT      0DBH
+				LJMP    APP_START+0DBH 		; Int 27
+
+				CSEG    AT      0E3H
+				LJMP    APP_START+0E3H 		; Int 28
+
+				CSEG    AT      0EBH
+				LJMP    APP_START+0EBH 		; Int 29
+
+				CSEG    AT      0F3H
+				LJMP    APP_START+0F3H 		; Int 30
+
+				CSEG    AT      0FBH
+				LJMP    APP_START+0FBH 		; Int 31
+
+
+
+
+				RSEG    ?C_C51STARTUP
 
 STARTUP1:
-				ANL		0FFH, #07FH
+               ;---------------------------------------------------------------------
+               ; Must be add the code to remove the 'APP_ENTRY' from code memory map.
+               ; For detail, Refer to the datasheet of W7100.
+               ;---------------------------------------------------------------------
+               
+               ANL		0FFH, #07FH
 
 IF IDATALEN <> 0
                 MOV     R0,#IDATALEN - 1

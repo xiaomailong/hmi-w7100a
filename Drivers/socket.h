@@ -1,12 +1,17 @@
+/**********************************************
+(c)COPYRIGHT WIZnet Inc. ALL RIGHT RESERVED
+ W7100 driver
+**********************************************/
 /*
 *
 @file		socket.h
-@brief	define function of socket API 
+@brief	header file for socket.c 
 *
 */
 
 #ifndef	__SOCKET_H__
 #define	__SOCKET_H__
+
 
 #include "types.h"
 
@@ -18,7 +23,7 @@ uint8 listen(SOCKET s);	// Establish TCP connection (Passive connection)
 uint16 send(SOCKET s,	const uint8 * buf, uint16 len);
 uint16 recv(SOCKET s,uint8 * buf,uint16 len);
 uint16 sendto(SOCKET s, const uint8 * buf, uint16 len, uint8 * addr, uint16 port); // Send data (UDP/IP RAW)
-uint16 recvfrom(SOCKET s, uint8 * buf, uint16 len/*, uint8 * addr, uint16  *port*/); // Receive data (UDP/IP RAW)
-
+uint16 recvfrom(SOCKET s, uint8 * buf, uint16 len, uint8 * addr, uint16  *port); // Receive data (UDP/IP RAW)
+									
 #endif
 /* _SOCKET_H_ */
