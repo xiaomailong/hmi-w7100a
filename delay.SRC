@@ -1,0 +1,187 @@
+; .\delay.SRC generated from: delay.c
+; COMPILER INVOKED BY:
+;        C:\Keil\C51\BIN\C51.EXE delay.c OMF2 BROWSE DEBUG SYMBOLS SRC(.\delay.SRC)
+
+
+NAME	DELAY
+
+?PR?_wait_1us?DELAY  SEGMENT CODE 
+?DT?_wait_1us?DELAY  SEGMENT DATA OVERLAYABLE
+?PR?_wait_1ms?DELAY  SEGMENT CODE 
+?DT?_wait_1ms?DELAY  SEGMENT DATA OVERLAYABLE
+?PR?_wait_10ms?DELAY SEGMENT CODE 
+?DT?_wait_10ms?DELAY SEGMENT DATA OVERLAYABLE
+	PUBLIC	_wait_10ms
+	PUBLIC	_wait_1ms
+	PUBLIC	_wait_1us
+
+	RSEG  ?DT?_wait_1ms?DELAY
+?_wait_1ms?BYTE:
+        cnt?142:   DS   2
+	ORG  2
+          i?143:   DS   2
+
+	RSEG  ?DT?_wait_1us?DELAY
+?_wait_1us?BYTE:
+        cnt?040:   DS   2
+	ORG  2
+          i?041:   DS   2
+
+	RSEG  ?DT?_wait_10ms?DELAY
+?_wait_10ms?BYTE:
+        cnt?244:   DS   2
+	ORG  2
+          i?245:   DS   2
+; /*
+; *
+; @file		delay.c
+; @brief	delay functions for the W7100
+; *
+; */
+; 
+; #include "delay.h"
+; 
+; void wait_1us(unsigned int cnt)
+
+	RSEG  ?PR?_wait_1us?DELAY
+_wait_1us:
+	USING	0
+			; SOURCE LINE # 10
+	MOV  	cnt?040,R6
+	MOV  	cnt?040+01H,R7
+; {
+			; SOURCE LINE # 11
+; 	unsigned int i;
+; 	
+; 	for(i = 0; i<cnt; i++) {
+			; SOURCE LINE # 14
+	CLR  	A
+	MOV  	i?041,A
+	MOV  	i?041+01H,A
+?C0001:
+	CLR  	C
+	MOV  	A,i?041+01H
+	SUBB 	A,cnt?040+01H
+	MOV  	A,i?041
+	SUBB 	A,cnt?040
+	JNC  	?C0004
+; #pragma ASM
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; #pragma ENDASM
+; 		}
+			; SOURCE LINE # 27
+	INC  	i?041+01H
+	MOV  	A,i?041+01H
+	JNZ  	?C0001
+	INC  	i?041
+?C0013:
+	SJMP 	?C0001
+; }
+			; SOURCE LINE # 28
+?C0004:
+	RET  	
+; END OF _wait_1us
+
+; 
+; // Warning > The wait function is optimized at 1us. If you use the 'wait_1ms' or 
+; //			'wait_10ms', there may be some errors.
+; //			The Timer can be used for accuate calculations.
+; 
+; void wait_1ms(unsigned int cnt)
+
+	RSEG  ?PR?_wait_1ms?DELAY
+_wait_1ms:
+	USING	0
+			; SOURCE LINE # 34
+	MOV  	cnt?142,R6
+	MOV  	cnt?142+01H,R7
+; {
+			; SOURCE LINE # 35
+; 	unsigned int i;
+; 
+; 	for (i = 0; i < cnt; i++) wait_1us(1000);
+			; SOURCE LINE # 38
+	CLR  	A
+	MOV  	i?143,A
+	MOV  	i?143+01H,A
+?C0005:
+	CLR  	C
+	MOV  	A,i?143+01H
+	SUBB 	A,cnt?142+01H
+	MOV  	A,i?143
+	SUBB 	A,cnt?142
+	JNC  	?C0008
+	MOV  	R7,#0E8H
+	MOV  	R6,#03H
+	LCALL	_wait_1us
+	INC  	i?143+01H
+	MOV  	A,i?143+01H
+	JNZ  	?C0005
+	INC  	i?143
+?C0014:
+	SJMP 	?C0005
+; }
+			; SOURCE LINE # 39
+?C0008:
+	RET  	
+; END OF _wait_1ms
+
+; 
+; void wait_10ms(unsigned int cnt)
+
+	RSEG  ?PR?_wait_10ms?DELAY
+_wait_10ms:
+	USING	0
+			; SOURCE LINE # 41
+	MOV  	cnt?244,R6
+	MOV  	cnt?244+01H,R7
+; {
+			; SOURCE LINE # 42
+; 	unsigned int i;
+; 	for (i = 0; i < cnt; i++) wait_1ms(10);
+			; SOURCE LINE # 44
+	CLR  	A
+	MOV  	i?245,A
+	MOV  	i?245+01H,A
+?C0009:
+	CLR  	C
+	MOV  	A,i?245+01H
+	SUBB 	A,cnt?244+01H
+	MOV  	A,i?245
+	SUBB 	A,cnt?244
+	JNC  	?C0012
+	MOV  	R7,#0AH
+	MOV  	R6,#00H
+	LCALL	_wait_1ms
+	INC  	i?245+01H
+	MOV  	A,i?245+01H
+	JNZ  	?C0009
+	INC  	i?245
+?C0015:
+	SJMP 	?C0009
+; }
+			; SOURCE LINE # 45
+?C0012:
+	RET  	
+; END OF _wait_10ms
+
+	END

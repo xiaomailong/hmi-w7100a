@@ -1,0 +1,242 @@
+AX51 MACRO ASSEMBLER  DELAY                                                                 06/26/15 16:02:48 PAGE     1
+
+
+MACRO ASSEMBLER AX51 V3.07a
+OBJECT MODULE PLACED IN delay.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\AX51.EXE delay.src PR(.\delay.ls1) EP DEBUG
+
+LOC    OBJ             LINE     SOURCE
+
+                          1     ; .\delay.SRC generated from: delay.c
+                          2     ; COMPILER INVOKED BY:
+                          3     ;        C:\Keil\C51\BIN\C51.EXE delay.c OMF2 BROWSE DEBUG SYMBOLS SRC(.\delay.SRC)
+                          4     
+                          5     
+                          6     NAME    DELAY
+                          7     
+------                    8     ?PR?_wait_1us?DELAY  SEGMENT CODE 
+------                    9     ?DT?_wait_1us?DELAY  SEGMENT DATA OVERLAYABLE
+------                   10     ?PR?_wait_1ms?DELAY  SEGMENT CODE 
+------                   11     ?DT?_wait_1ms?DELAY  SEGMENT DATA OVERLAYABLE
+------                   12     ?PR?_wait_10ms?DELAY SEGMENT CODE 
+------                   13     ?DT?_wait_10ms?DELAY SEGMENT DATA OVERLAYABLE
+                         14             PUBLIC  _wait_10ms
+                         15             PUBLIC  _wait_1ms
+                         16             PUBLIC  _wait_1us
+                         17     
+------                   18             RSEG  ?DT?_wait_1ms?DELAY
+000000                   19     ?_wait_1ms?BYTE:
+000000                   20             cnt?142:   DS   2
+000002                   21             ORG  2
+000002                   22               i?143:   DS   2
+                         23     
+------                   24             RSEG  ?DT?_wait_1us?DELAY
+000000                   25     ?_wait_1us?BYTE:
+000000                   26             cnt?040:   DS   2
+000002                   27             ORG  2
+000002                   28               i?041:   DS   2
+                         29     
+------                   30             RSEG  ?DT?_wait_10ms?DELAY
+000000                   31     ?_wait_10ms?BYTE:
+000000                   32             cnt?244:   DS   2
+000002                   33             ORG  2
+000002                   34               i?245:   DS   2
+                         35     ; /*
+                         36     ; *
+                         37     ; @file         delay.c
+                         38     ; @brief        delay functions for the W7100
+                         39     ; *
+                         40     ; */
+                         41     ; 
+                         42     ; #include "delay.h"
+                         43     ; 
+                         44     ; void wait_1us(unsigned int cnt)
+                         45     
+------                   46             RSEG  ?PR?_wait_1us?DELAY
+000000                   47     _wait_1us:
+                         48             USING   0
+                         49                             ; SOURCE LINE # 10
+000000 8E00       F      50             MOV     cnt?040,R6
+000002 8F00       F      51             MOV     cnt?040+01H,R7
+                         52     ; {
+                         53                             ; SOURCE LINE # 11
+                         54     ;       unsigned int i;
+                         55     ;       
+                         56     ;       for(i = 0; i<cnt; i++) {
+                         57                             ; SOURCE LINE # 14
+000004 E4                58             CLR     A
+AX51 MACRO ASSEMBLER  DELAY                                                                 06/26/15 16:02:48 PAGE     2
+
+000005 F500       F      59             MOV     i?041,A
+000007 F500       F      60             MOV     i?041+01H,A
+000009                   61     ?C0001:
+000009 C3                62             CLR     C
+00000A E500       F      63             MOV     A,i?041+01H
+00000C 9500       F      64             SUBB    A,cnt?040+01H
+00000E E500       F      65             MOV     A,i?041
+000010 9500       F      66             SUBB    A,cnt?040
+000012 5014              67             JNC     ?C0004
+                         68     ; #pragma ASM
+                         69     ;               NOP
+000014 00                70               NOP
+                         71     ;               NOP
+000015 00                72               NOP
+                         73     ;               NOP
+000016 00                74               NOP
+                         75     ;               NOP
+000017 00                76               NOP
+                         77     ;               NOP
+000018 00                78               NOP
+                         79     ;               NOP
+000019 00                80               NOP
+                         81     ;               NOP
+00001A 00                82               NOP
+                         83     ;               NOP
+00001B 00                84               NOP
+                         85     ;               NOP
+00001C 00                86               NOP
+                         87     ;               NOP
+00001D 00                88               NOP
+                         89     ; #pragma ENDASM
+                         90     ;               }
+                         91                             ; SOURCE LINE # 27
+00001E 0500       F      92             INC     i?041+01H
+000020 E500       F      93             MOV     A,i?041+01H
+000022 70E5              94             JNZ     ?C0001
+000024 0500       F      95             INC     i?041
+000026                   96     ?C0013:
+000026 80E1              97             SJMP    ?C0001
+                         98     ; }
+                         99                             ; SOURCE LINE # 28
+000028                  100     ?C0004:
+000028 22               101             RET     
+                        102     ; END OF _wait_1us
+                        103     
+                        104     ; 
+                        105     ; // Warning > The wait function is optimized at 1us. If you use the 'wait_1ms' or 
+                        106     ; //                    'wait_10ms', there may be some errors.
+                        107     ; //                    The Timer can be used for accuate calculations.
+                        108     ; 
+                        109     ; void wait_1ms(unsigned int cnt)
+                        110     
+------                  111             RSEG  ?PR?_wait_1ms?DELAY
+000000                  112     _wait_1ms:
+                        113             USING   0
+                        114                             ; SOURCE LINE # 34
+000000 8E00       F     115             MOV     cnt?142,R6
+000002 8F00       F     116             MOV     cnt?142+01H,R7
+                        117     ; {
+                        118                             ; SOURCE LINE # 35
+                        119     ;       unsigned int i;
+                        120     ; 
+                        121     ;       for (i = 0; i < cnt; i++) wait_1us(1000);
+                        122                             ; SOURCE LINE # 38
+000004 E4               123             CLR     A
+000005 F500       F     124             MOV     i?143,A
+AX51 MACRO ASSEMBLER  DELAY                                                                 06/26/15 16:02:48 PAGE     3
+
+000007 F500       F     125             MOV     i?143+01H,A
+000009                  126     ?C0005:
+000009 C3               127             CLR     C
+00000A E500       F     128             MOV     A,i?143+01H
+00000C 9500       F     129             SUBB    A,cnt?142+01H
+00000E E500       F     130             MOV     A,i?143
+000010 9500       F     131             SUBB    A,cnt?142
+000012 5011             132             JNC     ?C0008
+000014 7FE8             133             MOV     R7,#0E8H
+000016 7E03             134             MOV     R6,#03H
+000018 120000     F     135             LCALL   _wait_1us
+00001B 0500       F     136             INC     i?143+01H
+00001D E500       F     137             MOV     A,i?143+01H
+00001F 70E8             138             JNZ     ?C0005
+000021 0500       F     139             INC     i?143
+000023                  140     ?C0014:
+000023 80E4             141             SJMP    ?C0005
+                        142     ; }
+                        143                             ; SOURCE LINE # 39
+000025                  144     ?C0008:
+000025 22               145             RET     
+                        146     ; END OF _wait_1ms
+                        147     
+                        148     ; 
+                        149     ; void wait_10ms(unsigned int cnt)
+                        150     
+------                  151             RSEG  ?PR?_wait_10ms?DELAY
+000000                  152     _wait_10ms:
+                        153             USING   0
+                        154                             ; SOURCE LINE # 41
+000000 8E00       F     155             MOV     cnt?244,R6
+000002 8F00       F     156             MOV     cnt?244+01H,R7
+                        157     ; {
+                        158                             ; SOURCE LINE # 42
+                        159     ;       unsigned int i;
+                        160     ;       for (i = 0; i < cnt; i++) wait_1ms(10);
+                        161                             ; SOURCE LINE # 44
+000004 E4               162             CLR     A
+000005 F500       F     163             MOV     i?245,A
+000007 F500       F     164             MOV     i?245+01H,A
+000009                  165     ?C0009:
+000009 C3               166             CLR     C
+00000A E500       F     167             MOV     A,i?245+01H
+00000C 9500       F     168             SUBB    A,cnt?244+01H
+00000E E500       F     169             MOV     A,i?245
+000010 9500       F     170             SUBB    A,cnt?244
+000012 5011             171             JNC     ?C0012
+000014 7F0A             172             MOV     R7,#0AH
+000016 7E00             173             MOV     R6,#00H
+000018 120000     F     174             LCALL   _wait_1ms
+00001B 0500       F     175             INC     i?245+01H
+00001D E500       F     176             MOV     A,i?245+01H
+00001F 70E8             177             JNZ     ?C0009
+000021 0500       F     178             INC     i?245
+000023                  179     ?C0015:
+000023 80E4             180             SJMP    ?C0009
+                        181     ; }
+                        182                             ; SOURCE LINE # 45
+000025                  183     ?C0012:
+000025 22               184             RET     
+                        185     ; END OF _wait_10ms
+                        186     
+                        187             END
+AX51 MACRO ASSEMBLER  DELAY                                                                 06/26/15 16:02:48 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                               T Y P E  V A L U E     ATTRIBUTES
+
+?_WAIT_10MS?BYTE . . . . . . . . . .  D  ADDR  0000H     R   SEG=?DT?_WAIT_10MS?DELAY
+?_WAIT_1MS?BYTE. . . . . . . . . . .  D  ADDR  0000H     R   SEG=?DT?_WAIT_1MS?DELAY
+?_WAIT_1US?BYTE. . . . . . . . . . .  D  ADDR  0000H     R   SEG=?DT?_WAIT_1US?DELAY
+?C0001 . . . . . . . . . . . . . . .  C  ADDR  0009H     R   SEG=?PR?_WAIT_1US?DELAY
+?C0004 . . . . . . . . . . . . . . .  C  ADDR  0028H     R   SEG=?PR?_WAIT_1US?DELAY
+?C0005 . . . . . . . . . . . . . . .  C  ADDR  0009H     R   SEG=?PR?_WAIT_1MS?DELAY
+?C0008 . . . . . . . . . . . . . . .  C  ADDR  0025H     R   SEG=?PR?_WAIT_1MS?DELAY
+?C0009 . . . . . . . . . . . . . . .  C  ADDR  0009H     R   SEG=?PR?_WAIT_10MS?DELAY
+?C0012 . . . . . . . . . . . . . . .  C  ADDR  0025H     R   SEG=?PR?_WAIT_10MS?DELAY
+?C0013 . . . . . . . . . . . . . . .  C  ADDR  0026H     R   SEG=?PR?_WAIT_1US?DELAY
+?C0014 . . . . . . . . . . . . . . .  C  ADDR  0023H     R   SEG=?PR?_WAIT_1MS?DELAY
+?C0015 . . . . . . . . . . . . . . .  C  ADDR  0023H     R   SEG=?PR?_WAIT_10MS?DELAY
+?DT?_WAIT_10MS?DELAY . . . . . . . .  D  SEG   000004H       REL=UNIT, ALN=BYTE
+?DT?_WAIT_1MS?DELAY. . . . . . . . .  D  SEG   000004H       REL=UNIT, ALN=BYTE
+?DT?_WAIT_1US?DELAY. . . . . . . . .  D  SEG   000004H       REL=UNIT, ALN=BYTE
+?PR?_WAIT_10MS?DELAY . . . . . . . .  C  SEG   000026H       REL=UNIT, ALN=BYTE
+?PR?_WAIT_1MS?DELAY. . . . . . . . .  C  SEG   000026H       REL=UNIT, ALN=BYTE
+?PR?_WAIT_1US?DELAY. . . . . . . . .  C  SEG   000029H       REL=UNIT, ALN=BYTE
+_WAIT_10MS . . . . . . . . . . . . .  C  ADDR  0000H     R   SEG=?PR?_WAIT_10MS?DELAY
+_WAIT_1MS. . . . . . . . . . . . . .  C  ADDR  0000H     R   SEG=?PR?_WAIT_1MS?DELAY
+_WAIT_1US. . . . . . . . . . . . . .  C  ADDR  0000H     R   SEG=?PR?_WAIT_1US?DELAY
+CNT?040. . . . . . . . . . . . . . .  D  ADDR  0000H     R   SEG=?DT?_WAIT_1US?DELAY
+CNT?142. . . . . . . . . . . . . . .  D  ADDR  0000H     R   SEG=?DT?_WAIT_1MS?DELAY
+CNT?244. . . . . . . . . . . . . . .  D  ADDR  0000H     R   SEG=?DT?_WAIT_10MS?DELAY
+DELAY. . . . . . . . . . . . . . . .  -- ----  -------       
+I?041. . . . . . . . . . . . . . . .  D  ADDR  0002H     R   SEG=?DT?_WAIT_1US?DELAY
+I?143. . . . . . . . . . . . . . . .  D  ADDR  0002H     R   SEG=?DT?_WAIT_1MS?DELAY
+I?245. . . . . . . . . . . . . . . .  D  ADDR  0002H     R   SEG=?DT?_WAIT_10MS?DELAY
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S).
