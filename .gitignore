@@ -30,7 +30,7 @@
 
 # Debug files
 *.dSYM/
-
-build/
-*.bak
 ~/
+build/
+objs/
+*.bak

@@ -81,14 +81,13 @@ void Init_Network(void)
 	uint8 xdata ip[4] = {192,168,1,2};                   	// for setting SIP register
 	uint8 xdata gw[4] = {192,168,1,1};                     	// for setting GAR register
 	uint8 xdata sn[4] = {255,255,255,0};                    // for setting SUBR register			
-	uint8 xdata mac[6] = {0x00,0x08,0xDC,0x11,0x22,0x33};   // for setting SHAR register
+	uint8 xdata mac[6] = {0x00,0x08,0xDC,0x11,0x01,0x02};   // for setting SHAR register
 
-	
 	/* Assign the TX, RX memory of each SOCKETs */	 
-	//uint8 xdata txsize[MAX_SOCK_NUM] = {8,2,1,1,1,1,1,1};
-	//uint8 xdata rxsize[MAX_SOCK_NUM] = {8,2,1,1,1,1,1,1};
-	uint8 xdata txsize[MAX_SOCK_NUM] = {2,2,2,2,2,2,2,2};
-	uint8 xdata rxsize[MAX_SOCK_NUM] = {2,2,2,2,2,2,2,2};
+	uint8 xdata txsize[MAX_SOCK_NUM] = {8,2,1,1,1,1,1,1};
+	uint8 xdata rxsize[MAX_SOCK_NUM] = {8,2,1,1,1,1,1,1};
+	//uint8 xdata txsize[MAX_SOCK_NUM] = {2,2,2,2,2,2,2,2};
+	//uint8 xdata rxsize[MAX_SOCK_NUM] = {2,2,2,2,2,2,2,2};
 
 	uint8 xdata str[17];
 	uint8 xdata rsn[4];
