@@ -1,97 +1,77 @@
-/**********************************************
-(c)COPYRIGHT WIZnet Inc. ALL RIGHT RESERVED
- W7100 driver
-**********************************************/
 /*
-*
 @file		TCPIPCore.h
-@brief	Header file for TCPIPCore.c 
-				define functions, value and registers for WIZnet TCPIPCore 
-*
 */
-		
+
 #ifndef	_TCPIPCore_H_
 #define	_TCPIPCore_H_
 
-#include <stdio.h>
-#include <string.h>	 
-#include <stdlib.h>  
-#include "delay.h"
-#include "serial.h"				// serial related functions
-#include "W7100.h"				// Definition file for 8051 SFR										   
-#include "socket.h"				// W7100A driver file
-#include "wizmemcpy.h"
 #include "iinchip_conf.h"
 #include "types.h"
 
-extern vuint8 xdata I_STATUS[MAX_SOCK_NUM];
-extern uint16 xdata SMASK[MAX_SOCK_NUM]; /**< Variable for Tx buffer MASK in each channel */
-extern uint16 xdata RMASK[MAX_SOCK_NUM]; /**< Variable for Rx buffer MASK in each channel */
-extern uint16 xdata SSIZE[MAX_SOCK_NUM]; /**< Max Tx buffer size by each channel */
-extern uint16 xdata RSIZE[MAX_SOCK_NUM]; /**< Max Rx buffer size by each channel */
-extern uint16 xdata SBUFBASEADDRESS[MAX_SOCK_NUM]; /**< Tx buffer base address by each channel */
-extern uint16 xdata RBUFBASEADDRESS[MAX_SOCK_NUM]; /**< Rx buffer base address by each channel */
+static vuint8 xdata I_STATUS[MAX_SOCK_NUM];
+static uint16 xdata SMASK[MAX_SOCK_NUM]; /**< Variable for Tx buffer MASK in each channel */
+static uint16 xdata RMASK[MAX_SOCK_NUM]; /**< Variable for Rx buffer MASK in each channel */
+static uint16 xdata SSIZE[MAX_SOCK_NUM]; /**< Max Tx buffer size by each channel */
+static uint16 xdata RSIZE[MAX_SOCK_NUM]; /**< Max Rx buffer size by each channel */
+static uint16 xdata SBUFBASEADDRESS[MAX_SOCK_NUM]; /**< Tx buffer base address by each channel */
+static uint16 xdata RBUFBASEADDRESS[MAX_SOCK_NUM]; /**< Rx buffer base address by each channel */
 
-/*************************************************************/
-/*					Chip Package Selector 					 */	
-/*************************************************************/
-//#define USE_QFN64			// If your EVB has QFN64pin package W7100A, use this definition
 
+#define MR 		COMMON_BASE
+#define MR_RST			0x80 		/**< reset */
 
 /*************************************************************/
 /*					COMMON REGISTERS						  */	
 /*************************************************************/
 
-#define MR 			COMMON_BASE
-
 //Gateway IP Register address
-#define GAR0		(COMMON_BASE + 0x0001)
+#define GAR0		((volatile uint8 xdata *)(COMMON_BASE + 0x0001))
 
 //Subnet mask Register address
-#define SUBR0		(COMMON_BASE + 0x0005)
+#define SUBR0		((volatile uint8 xdata *)(COMMON_BASE + 0x0005))
 
 //Source MAC Register address
-#define SHAR0		(COMMON_BASE + 0x0009)
+#define SHAR0		((volatile uint8 xdata *)(COMMON_BASE + 0x0009))
 
 //Source IP Register address
-#define SIPR0		(COMMON_BASE + 0x000F)
+#define SIPR0		((volatile uint8 xdata *)(COMMON_BASE + 0x000F))
 
 //Interrupt Register
-#define IR		(COMMON_BASE + 0x0015)
+#define IR		((volatile uint8 xdata *)(COMMON_BASE + 0x0015))
 
 //Interrupt mask register
-#define IMR		(COMMON_BASE + 0x0016)
-
-//Timeout register address( 1 is 100us )
-#define RTR		(COMMON_BASE + 0x0017)
-
-//Retry count reigster
-#define RCR		(COMMON_BASE + 0x0019)
-
-//Authentication type register address in PPPoE mode
-#define PATR0		(COMMON_BASE + 0x001C)
-#define PPPALGO		(COMMON_BASE + 0x001E)
-
-//Chip version register address
-#define VERSIONR	(COMMON_BASE + 0x001F)
-
-//PPP Link control protocol request timer
-#define PTIMER 		(COMMON_BASE + 0x0028)
-
-//PPP LCP magic number register
-#define PMAGIC 		(COMMON_BASE + 0x0029)
-
-//Unreachable IP register address in UDP mode
-#define UIPR0		(COMMON_BASE + 0x002A)
-
-//Unreachable Port register address in UDP mode
-#define UPORT0		(COMMON_BASE + 0x002E)
+#define IMR		((volatile uint8 xdata *)(COMMON_BASE + 0x0016))
 
 //Interrupt Interval register. 1 is about 11.3ns
 #define INTLEVEL0	 (COMMON_BASE + 0x0030)    //Added v1.3
 
+//Timeout register address( 1 is 100us )
+#define RTR		((volatile uint8 xdata *)(COMMON_BASE + 0x0017))
+
+//Retry count reigster
+#define RCR		((volatile uint8 xdata *)(COMMON_BASE + 0x0019))
+
+//Authentication type register address in PPPoE mode
+#define PATR0		((volatile uint8 xdata *)(COMMON_BASE + 0x001C))
+#define PPPALGO		((volatile uint8 xdata *)(COMMON_BASE + 0x001E))
+
+//Chip version register address
+#define VERSIONR	((volatile uint8 xdata *)(COMMON_BASE + 0x001F))
+
+//PPP Link control protocol request timer
+#define PTIMER 		((volatile uint8 xdata *)(COMMON_BASE + 0x0028))
+
+//PPP LCP magic number register
+#define PMAGIC 		((volatile uint8 xdata *)(COMMON_BASE + 0x0029))
+
+//Unreachable IP register address in UDP mode
+#define UIPR0		((volatile uint8 xdata *)(COMMON_BASE + 0x002A))
+
+//Unreachable Port register address in UDP mode
+#define UPORT0		((volatile uint8 xdata *)(COMMON_BASE + 0x002E))
+
 //SOCKET Interrupt Register
-#define IR2		(COMMON_BASE + 0x0034)
+#define IR2		((volatile uint8 xdata *)(COMMON_BASE + 0x0034))
 
 
 /*************************************************************/
@@ -118,7 +98,7 @@ extern uint16 xdata RBUFBASEADDRESS[MAX_SOCK_NUM]; /**< Rx buffer base address b
 
 //Source port register
 #define Sn_PORT0(ch)		(CH_BASE + ch * CH_SIZE + 0x0004)
-
+#define Sn_PORT1(ch)		(Sn_PORT0(ch)+1)
 //Peer MAC register address
 #define Sn_DHAR0(ch)		(CH_BASE + ch * CH_SIZE + 0x0006)
 
@@ -254,10 +234,7 @@ extern uint16 xdata RBUFBASEADDRESS[MAX_SOCK_NUM]; /**< Rx buffer base address b
 /*************************************************************/
 /*					W7100 ACCESS FUNCTIONS					  */	
 /*************************************************************/
-void Init_iMCU(void); 		
-void Init_Network(void);
-void CHIP_Init(void);
-void PHY_mode_config(void);
+
 uint8 IINCHIP_READ(uint16 addr); 
 void IINCHIP_WRITE(uint16 addr,uint8 wizdata);
 void set_MEMsize(uint8* tx_size, uint8* rx_size); // setting TX/RX buffer size
@@ -268,26 +245,5 @@ uint16 getSn_TX_FSR(SOCKET s); // get socket TX free buffer size
 uint16 getSn_RX_RSR(SOCKET s); // get socket RX recv buffer size
 void IINCHIP_WRITE_BUF(SOCKET s, vuint8 * src, vuint8 * dst, uint16 len);
 void IINCHIP_READ_BUF(SOCKET s, vuint8 * src, uint8 * dst, uint16 len);
-
-void SetSubnet(uint8 * addr);
-void ApplySubnet(void);
-void ClearSubnet(void);
-void GetSubnet(uint8 * addr);
-
-
-#ifdef __DEF_IINCHIP_PPP__		// PPPoE Driver for W7100A
-#define PPP_RET_ERR_UNKNOWN   0
-#define PPP_RET_ERR_DISCOVERY 1
-#define PPP_RET_ERR_LCP       2
-#define PPP_RET_ERR_AUTHNA    3
-#define PPP_RET_ERR_AUTHFAIL  4
-#define PPP_RET_ERR_AUTH      5
-#define PPP_RET_ERR_IPCP      6
-#define PPP_RET_ERR_IPCPNAK   7
-#define PPP_RET_SUCCESS       8
-uint8 pppinit(uint8 *id, uint8 idlen, uint8 *passwd, uint8 passwdlen);
-uint8 pppterm(uint8 *mac,uint8 *sessionid);
-#endif
-
 
 #endif

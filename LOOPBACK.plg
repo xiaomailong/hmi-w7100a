@@ -1,0 +1,49 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\HJ\hardware\NET-W7100\20150703UDP-PC104-W7100A\LOOPBACK.uvproj
+Project File Date:  06/25/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling wizmemcpy.c...
+compiling delay.c...
+assembling delay.src...
+compiling GETKEY.C...
+compiling loopback.c...
+compiling main.c...
+assembling main.src...
+compiling PUTCHAR.C...
+compiling serial.c...
+compiling socket.c...
+compiling TCPIPCore.c...
+assembling STARTUP.A51...
+compiling lcd.c...
+linking...
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _WAIT_10MS/DELAY
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _?_GETKEY/GETKEY
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _LISTEN/SOCKET
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _CONNECT/SOCKET
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _DISCONNECT/SOCKET
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _SEND/SOCKET
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _RECV/SOCKET
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    LCD_READY/LCD
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    LCD_INIT/LCD
+*** WARNING L16: UNCALLED FUNCTION, IGNORED FOR OVERLAY PROCESS
+    NAME:    _LCD_PUTCH/LCD
+Program Size: data=87.4 xdata=498 const=0 code=8475
+creating hex file from "LOOPBACK"...
+"LOOPBACK" - 0 Error(s), 10 Warning(s).
+Clean started: Project: 'LOOPBACK'
+   deleting intermediate output files for target 'Target 1'

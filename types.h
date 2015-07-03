@@ -1,11 +1,6 @@
-/**********************************************
-(c)COPYRIGHT WIZnet Inc. ALL RIGHT RESERVED
- W7100 driver
-**********************************************/
 /*
 *
-@file		types.h
-@brief	define variable type for C code 
+@file		type.h
 *
 */
 
@@ -38,7 +33,7 @@ typedef volatile char vint8;
 /**
  * The 8-bit unsigned data type.
  */
-typedef unsigned char 	uint8;
+typedef unsigned char uint8;
 typedef unsigned char	SOCKET;
 /**
  * The volatile 8-bit unsigned data type.
